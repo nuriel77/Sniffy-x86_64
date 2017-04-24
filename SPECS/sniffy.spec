@@ -35,15 +35,11 @@ Sniffy: Program to inspect HTTP packets for potential abusers.
 
 %install
 %{_python} setup.py install --single-version-externally-managed --single-version-externally-managed -O1 --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES --install-scripts="/usr/local/bin"
-mkdir -p $RPM_BUILD_ROOT/etc/sniffy $RPM_BUILD_ROOT/etc/init.d $RPM_BUILD_ROOT/etc/logrotate.d $RPM_BUILD_ROOT/usr/local/bin $RPM_BUILD_ROOT/etc/cron.d
+mkdir -p $RPM_BUILD_ROOT/etc/sniffy $RPM_BUILD_ROOT/etc/init.d $RPM_BUILD_ROOT/etc/logrotate.d $RPM_BUILD_ROOT/usr/local/bin
 install -m 700 etc/init.d/sniffy $RPM_BUILD_ROOT/etc/init.d/sniffy
-install -m 700 scripts/get_signatures.sh $RPM_BUILD_ROOT/usr/local/bin/get_signatures.sh
-install -m 644 etc/cron.d/sniffy_signatures $RPM_BUILD_ROOT/etc/cron.d/.
 install -m 600 etc/sniffy/* $RPM_BUILD_ROOT/etc/sniffy/.
 install -m 640 etc/logrotate.d/sniffy $RPM_BUILD_ROOT/etc/logrotate.d/sniffy
 echo /etc/init.d/sniffy >> INSTALLED_FILES
-echo /etc/cron.d/sniffy_signatures >> INSTALLED_FILES
-echo /usr/local/bin/get_signatures.sh >> INSTALLED_FILES
 echo "%config(noreplace) /etc/sniffy/defaults" >> INSTALLED_FILES
 echo "%config(noreplace) /etc/sniffy/db.creds.yml" >> INSTALLED_FILES
 echo "%config(noreplace) /etc/sniffy/signatures.yml" >> INSTALLED_FILES
