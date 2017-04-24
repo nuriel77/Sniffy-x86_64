@@ -1,0 +1,28 @@
+box: centos
+build:
+  steps:
+    - script:
+        name: Setup network
+        code: |
+          echo "NETWORKING=yes" > /etc/sysconfig/network
+
+    - script:
+        name: Setup yum repositories
+        code: |
+          yum install -y epel-release
+
+    - script:
+        name: Install required deps
+        code: |
+          yum install -y libffi-devel openssl-devel python-devel tcpdump python-pip rpmbuild
+
+    - script:
+        name: Setup build enviroment
+        code: |
+          yum groupinstall -y 'Development tools'
+          yum install -y rpm-build autoconf-archive
+
+    - script:
+        name: Build RPM
+        code: |
+          rpmbuild -ba SPECS/sniffy.spec
