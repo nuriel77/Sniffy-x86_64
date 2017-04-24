@@ -1,0 +1,43 @@
+box: centos7
+# You can also use services such as databases. Read more on our dev center:
+# http://devcenter.wercker.com/docs/services/index.html
+# services:
+    # - postgres
+    # http://devcenter.wercker.com/docs/services/postgresql.html
+
+    # - mongo
+    # http://devcenter.wercker.com/docs/services/mongodb.html
+
+# This is the build pipeline. Pipelines are the core of wercker
+# Read more about pipelines on our dev center
+# http://devcenter.wercker.com/docs/pipelines/index.html
+build:
+    # Steps make up the actions in your pipeline
+    # Read more about steps on our dev center:
+    # http://devcenter.wercker.com/docs/steps/index.html
+  steps:
+    - script:
+        name: Setup network
+        code: |
+          echo "NETWORKING=yes" > /etc/sysconfig/network
+
+    - script:
+        name: Setup yum repositories
+        code: |
+          yum install -y epel-release
+
+    - script:
+        name: Install required deps
+        code: |
+          yum install -y libffi-devel openssl-devel python-devel tcpdump python-pip rpmbuild
+
+    - script:
+        name: Setup build enviroment
+        code: |
+          yum groupinstall -y 'Development tools'
+          yum install -y rpm-build autoconf-archive
+
+    - script:
+        name: Build RPM
+        code: |
+          rpmbuild -ba SPECS/sniffy.spec
