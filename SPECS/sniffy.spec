@@ -1,4 +1,4 @@
-%define name Sniffy
+%define name sniffy
 %define version 1.0.1
 %define unmangled_version 1.0.1
 %define unmangled_version 1.0.1
