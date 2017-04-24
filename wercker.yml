@@ -19,8 +19,10 @@ build:
     - script:
         name: Setup build enviroment
         code: |
-          yum groupinstall -y 'Development tools'
+          #yum groupinstall -y 'Development tools'
           yum install -y rpm-build autoconf-archive
+          mkdir -p ~/rpmbuild/{BUILD,BUILDROOT,RPMS,SOURCES,SPECS,SRPMS}
+          echo "%_topdir    $HOME/rpmbuild" >~/.rpmmacros
 
     - script:
         name: Build RPM
