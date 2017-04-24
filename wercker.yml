@@ -25,4 +25,5 @@ build:
     - script:
         name: Build RPM
         code: |
+          cp SOURCES/* ~/rpmbuild/SOURCES/.
           rpmbuild -ba SPECS/sniffy.spec
