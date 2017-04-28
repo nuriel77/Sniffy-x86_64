@@ -29,6 +29,7 @@ Sniffy: Program to inspect HTTP packets for potential abusers.
 
 %prep
 %setup -n %{name}-%{unmangled_version} -n %{name}-%{unmangled_version}
+rm -rf *.egg-info
 
 %build
 %{_python} setup.py build
